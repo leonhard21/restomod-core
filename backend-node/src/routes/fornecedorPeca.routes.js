@@ -1,0 +1,11 @@
+const express = require('express');
+const controller = require('../controllers/fornecedorPeca.controller');
+
+const router = express.Router();
+
+router.get('/', controller.listar);
+router.post('/', controller.criar);
+router.delete('/limpar', controller.limpar);
+router.delete('/', controller.remover);
+
+module.exports = router;

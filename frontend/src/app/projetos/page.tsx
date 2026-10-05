@@ -1,9 +1,12 @@
 'use client'
 import { useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
 import api from '@/lib/api'
+import { isLoggedIn } from '@/lib/auth'
 import CrudTable from '@/components/CrudTable'
 
 export default function ProjetosPage() {
+  const router = useRouter()
   const [data, setData]         = useState<any[]>([])
   const [editing, setEditing]   = useState<any | null>(null)
   const [cliente, setCliente]   = useState<any[]>([])
@@ -30,6 +33,11 @@ export default function ProjetosPage() {
   useEffect(() => { load() }, [])
 
   const handleSave = async (item: any) => {
+    if (!isLoggedIn()) {
+      alert('Você precisa entrar para criar ou editar projetos.')
+      router.push('/login')
+      return
+    }
     try {
       // Blindagem para garantir que os IDs sejam enviados como números
       const payload = {
@@ -54,16 +62,35 @@ export default function ProjetosPage() {
         setNewItem({})
       }
       load()
-    } catch (error) {
+    } catch (error: any) {
       console.error("Erro ao salvar projeto:", error)
-      alert("Erro ao salvar os dados.")
+      if (error?.response?.status === 401) {
+        alert('Sua sessão expirou. Entre novamente.')
+        router.push('/login')
+      } else {
+        alert("Erro ao salvar os dados.")
+      }
     }
   }
 
   const handleDelete = async (id: number) => {
+    if (!isLoggedIn()) {
+      alert('Você precisa entrar para remover projetos.')
+      router.push('/login')
+      return
+    }
     if (confirm('Deseja deletar este projeto? Serviços e Históricos atrelados serão apagados!')) {
-      await api.delete(`/api/projetos/${id}`)
-      load()
+      try {
+        await api.delete(`/api/projetos/${id}`)
+        load()
+      } catch (error: any) {
+        if (error?.response?.status === 401) {
+          alert('Sua sessão expirou. Entre novamente.')
+          router.push('/login')
+        } else {
+          alert('Erro ao remover projeto.')
+        }
+      }
     }
   }
 

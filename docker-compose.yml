@@ -21,20 +21,19 @@ services:
     networks:
       - oficina_net
 
-  # ─── Backend (Go + Gin) ───────────────────────────────────────
+  # ─── Backend (Node.js + Express + Prisma) ─────────────────────
   backend:
     build:
-      context: ./backend
+      context: ./backend-node
       dockerfile: Dockerfile
     container_name: oficina_backend
     restart: always
     environment:
-      DB_HOST: db
-      DB_PORT: 5432
-      DB_USER: postgres
-      DB_PASSWORD: 1234
-      DB_NAME: oficina_db
+      DATABASE_URL: postgresql://postgres:1234@db:5432/oficina_db
       PORT: 8080
+      JWT_SECRET: ${JWT_SECRET:-troque_por_um_segredo_forte_e_aleatorio}
+      JWT_EXPIRES_IN: 1d
+      CORS_ORIGIN: http://localhost:3000
     ports:
       - "8080:8080"
     depends_on:
