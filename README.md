@@ -99,19 +99,19 @@ Todas as rotas abaixo têm prefixo `/api`. "Autenticação" marca quais exigem `
 | POST | `/api/auth/login` | Não | Autentica e retorna um token JWT |
 | GET | `/api/clientes` | Não | Lista clientes |
 | GET | `/api/clientes/:id` | Não | Busca cliente por ID |
-| POST | `/api/clientes` | Não | Cria cliente |
-| PUT | `/api/clientes/:id` | Não | Atualiza cliente |
-| DELETE | `/api/clientes/:id` | Não | Remove cliente |
+| POST | `/api/clientes` | **Sim** | Cria cliente |
+| PUT | `/api/clientes/:id` | **Sim** | Atualiza cliente |
+| DELETE | `/api/clientes/:id` | **Sim** | Remove cliente |
 | GET | `/api/oficinas` | Não | Lista oficinas |
 | GET | `/api/oficinas/:id` | Não | Busca oficina por ID |
-| POST | `/api/oficinas` | Não | Cria oficina |
-| PUT | `/api/oficinas/:id` | Não | Atualiza oficina |
-| DELETE | `/api/oficinas/:id` | Não | Remove oficina |
+| POST | `/api/oficinas` | **Sim** | Cria oficina |
+| PUT | `/api/oficinas/:id` | **Sim** | Atualiza oficina |
+| DELETE | `/api/oficinas/:id` | **Sim** | Remove oficina |
 | GET | `/api/veiculos` | Não | Lista veículos (com cliente) |
 | GET | `/api/veiculos/:id` | Não | Busca veículo por ID |
-| POST | `/api/veiculos` | Não | Cria veículo |
-| PUT | `/api/veiculos/:id` | Não | Atualiza veículo |
-| DELETE | `/api/veiculos/:id` | Não | Remove veículo |
+| POST | `/api/veiculos` | **Sim** | Cria veículo |
+| PUT | `/api/veiculos/:id` | **Sim** | Atualiza veículo |
+| DELETE | `/api/veiculos/:id` | **Sim** | Remove veículo |
 | GET | `/api/projetos` | Não | Lista projetos (**entidade principal**, com cliente/oficina/veículo) |
 | GET | `/api/projetos/:id` | Não | Busca projeto por ID |
 | POST | `/api/projetos` | **Sim** | Cria projeto |
@@ -119,52 +119,52 @@ Todas as rotas abaixo têm prefixo `/api`. "Autenticação" marca quais exigem `
 | DELETE | `/api/projetos/:id` | **Sim** | Remove projeto |
 | GET | `/api/mecanicos` | Não | Lista mecânicos (com oficina) |
 | GET | `/api/mecanicos/:id` | Não | Busca mecânico por ID |
-| POST | `/api/mecanicos` | Não | Cria mecânico |
-| PUT | `/api/mecanicos/:id` | Não | Atualiza mecânico |
-| DELETE | `/api/mecanicos/:id` | Não | Remove mecânico |
+| POST | `/api/mecanicos` | **Sim** | Cria mecânico |
+| PUT | `/api/mecanicos/:id` | **Sim** | Atualiza mecânico |
+| DELETE | `/api/mecanicos/:id` | **Sim** | Remove mecânico |
 | GET | `/api/pecas` | Não | Lista peças (com fornecedores) |
 | GET | `/api/pecas/:id` | Não | Busca peça por ID |
-| POST | `/api/pecas` | Não | Cria peça |
-| PUT | `/api/pecas/:id` | Não | Atualiza peça |
-| DELETE | `/api/pecas/:id` | Não | Remove peça |
+| POST | `/api/pecas` | **Sim** | Cria peça |
+| PUT | `/api/pecas/:id` | **Sim** | Atualiza peça |
+| DELETE | `/api/pecas/:id` | **Sim** | Remove peça |
 | GET | `/api/fornecedor` | Não | Lista fornecedores |
 | GET | `/api/fornecedor/:id` | Não | Busca fornecedor por ID |
-| POST | `/api/fornecedor` | Não | Cria fornecedor |
-| PUT | `/api/fornecedor/:id` | Não | Atualiza fornecedor |
-| DELETE | `/api/fornecedor/:id` | Não | Remove fornecedor |
+| POST | `/api/fornecedor` | **Sim** | Cria fornecedor |
+| PUT | `/api/fornecedor/:id` | **Sim** | Atualiza fornecedor |
+| DELETE | `/api/fornecedor/:id` | **Sim** | Remove fornecedor |
 | GET | `/api/servicos` | Não | Lista serviços (com projeto, mecânicos, upgrade) |
 | GET | `/api/servicos/:id` | Não | Busca serviço por ID |
-| POST | `/api/servicos` | Não | Cria serviço |
-| PUT | `/api/servicos/:id` | Não | Atualiza serviço |
-| DELETE | `/api/servicos/:id` | Não | Remove serviço |
+| POST | `/api/servicos` | **Sim** | Cria serviço |
+| PUT | `/api/servicos/:id` | **Sim** | Atualiza serviço |
+| DELETE | `/api/servicos/:id` | **Sim** | Remove serviço |
 | GET | `/api/usopeca` | Não | Lista usos de peça (com peça e serviço) |
 | GET | `/api/usopeca/:id` | Não | Busca uso de peça por ID |
-| POST | `/api/usopeca` | Não | Cria uso de peça |
-| PUT | `/api/usopeca/:id` | Não | Atualiza uso de peça |
-| DELETE | `/api/usopeca/:id` | Não | Remove uso de peça |
+| POST | `/api/usopeca` | **Sim** | Cria uso de peça |
+| PUT | `/api/usopeca/:id` | **Sim** | Atualiza uso de peça |
+| DELETE | `/api/usopeca/:id` | **Sim** | Remove uso de peça |
 | GET | `/api/historicoprojeto` | Não | Lista histórico de projetos |
 | GET | `/api/historicoprojeto/:id` | Não | Busca histórico por ID |
-| POST | `/api/historicoprojeto` | Não | Cria registro de histórico |
-| PUT | `/api/historicoprojeto/:id` | Não | Atualiza registro de histórico |
-| DELETE | `/api/historicoprojeto/:id` | Não | Remove registro de histórico |
+| POST | `/api/historicoprojeto` | **Sim** | Cria registro de histórico |
+| PUT | `/api/historicoprojeto/:id` | **Sim** | Atualiza registro de histórico |
+| DELETE | `/api/historicoprojeto/:id` | **Sim** | Remove registro de histórico |
 | GET | `/api/inspecao` | Não | Lista inspeções (com veículo e mecânico) |
 | GET | `/api/inspecao/:id` | Não | Busca inspeção por ID |
-| POST | `/api/inspecao` | Não | Cria inspeção |
-| PUT | `/api/inspecao/:id` | Não | Atualiza inspeção |
-| DELETE | `/api/inspecao/:id` | Não | Remove inspeção |
+| POST | `/api/inspecao` | **Sim** | Cria inspeção |
+| PUT | `/api/inspecao/:id` | **Sim** | Atualiza inspeção |
+| DELETE | `/api/inspecao/:id` | **Sim** | Remove inspeção |
 | GET | `/api/upgraderestomod` | Não | Lista upgrades restomod (com projeto) |
 | GET | `/api/upgraderestomod/:id` | Não | Busca upgrade por ID |
-| POST | `/api/upgraderestomod` | Não | Cria upgrade |
-| PUT | `/api/upgraderestomod/:id` | Não | Atualiza upgrade |
-| DELETE | `/api/upgraderestomod/:id` | Não | Remove upgrade |
+| POST | `/api/upgraderestomod` | **Sim** | Cria upgrade |
+| PUT | `/api/upgraderestomod/:id` | **Sim** | Atualiza upgrade |
+| DELETE | `/api/upgraderestomod/:id` | **Sim** | Remove upgrade |
 | GET | `/api/mecanicoservico` | Não | Lista vínculos mecânico↔serviço |
-| POST | `/api/mecanicoservico` | Não | Cria vínculo mecânico↔serviço |
-| DELETE | `/api/mecanicoservico` | Não | Remove vínculo pontual (`?id_servico=&id_mecanico=`) |
-| DELETE | `/api/mecanicoservico/limpar` | Não | Remove todos os vínculos de um serviço (`?id_servico=`) |
+| POST | `/api/mecanicoservico` | **Sim** | Cria vínculo mecânico↔serviço |
+| DELETE | `/api/mecanicoservico` | **Sim** | Remove vínculo pontual (`?id_servico=&id_mecanico=`) |
+| DELETE | `/api/mecanicoservico/limpar` | **Sim** | Remove todos os vínculos de um serviço (`?id_servico=`) |
 | GET | `/api/fornecedorpeca` | Não | Lista vínculos peça↔fornecedor |
-| POST | `/api/fornecedorpeca` | Não | Cria vínculo peça↔fornecedor |
-| DELETE | `/api/fornecedorpeca` | Não | Remove vínculo pontual (`?id_peca=&id_fornecedor=`) |
-| DELETE | `/api/fornecedorpeca/limpar` | Não | Remove todos os vínculos de uma peça (`?id_peca=`) |
+| POST | `/api/fornecedorpeca` | **Sim** | Cria vínculo peça↔fornecedor |
+| DELETE | `/api/fornecedorpeca` | **Sim** | Remove vínculo pontual (`?id_peca=&id_fornecedor=`) |
+| DELETE | `/api/fornecedorpeca/limpar` | **Sim** | Remove todos os vínculos de uma peça (`?id_peca=`) |
 | GET | `/api/dashboard/servicos-por-oficina` | Não | Valor total de serviços por oficina |
 | GET | `/api/dashboard/horas-por-mecanico` | Não | Horas trabalhadas por mecânico |
 | GET | `/api/dashboard/pecas-utilizadas` | Não | Peças mais utilizadas |
