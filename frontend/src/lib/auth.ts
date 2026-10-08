@@ -24,3 +24,25 @@ export function clearSession() {
 export function isLoggedIn(): boolean {
   return getToken() !== null
 }
+
+type Router = { push: (path: string) => void }
+
+// Bloqueia a ação antes de chamar a API se não houver sessão ativa.
+// Retorna true se pode prosseguir, false se já redirecionou pro login.
+export function requireAuth(router: Router): boolean {
+  if (isLoggedIn()) return true
+  alert('Você precisa entrar para criar, editar ou remover registros.')
+  router.push('/login')
+  return false
+}
+
+// Trata 401 vindo da API (ex.: token expirou no meio da sessão).
+// Retorna true se o erro era de autenticação e já redirecionou.
+export function handleAuthError(error: any, router: Router): boolean {
+  if (error?.response?.status === 401) {
+    alert('Sua sessão expirou. Entre novamente.')
+    router.push('/login')
+    return true
+  }
+  return false
+}
