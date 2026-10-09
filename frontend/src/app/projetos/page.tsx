@@ -1,9 +1,12 @@
 'use client'
 import { useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
 import api from '@/lib/api'
+import { requireAuth, handleAuthError } from '@/lib/auth'
 import CrudTable from '@/components/CrudTable'
 
 export default function ProjetosPage() {
+  const router = useRouter()
   const [data, setData]         = useState<any[]>([])
   const [editing, setEditing]   = useState<any | null>(null)
   const [cliente, setCliente]   = useState<any[]>([])
@@ -30,6 +33,7 @@ export default function ProjetosPage() {
   useEffect(() => { load() }, [])
 
   const handleSave = async (item: any) => {
+    if (!requireAuth(router)) return
     try {
       // Blindagem para garantir que os IDs sejam enviados como números
       const payload = {
@@ -54,16 +58,21 @@ export default function ProjetosPage() {
         setNewItem({})
       }
       load()
-    } catch (error) {
+    } catch (error: any) {
       console.error("Erro ao salvar projeto:", error)
-      alert("Erro ao salvar os dados.")
+      if (!handleAuthError(error, router)) alert("Erro ao salvar os dados.")
     }
   }
 
   const handleDelete = async (id: number) => {
+    if (!requireAuth(router)) return
     if (confirm('Deseja deletar este projeto? Serviços e Históricos atrelados serão apagados!')) {
-      await api.delete(`/api/projetos/${id}`)
-      load()
+      try {
+        await api.delete(`/api/projetos/${id}`)
+        load()
+      } catch (error: any) {
+        if (!handleAuthError(error, router)) alert('Erro ao remover projeto.')
+      }
     }
   }
 
