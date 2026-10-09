@@ -195,4 +195,4 @@ curl -X POST http://localhost:8080/api/projetos \
 
 ## Demonstração
 
-A API pode ser testada integralmente via **Insomnia**, **Postman**, **Thunder Client** ou **curl**, usando os exemplos acima como ponto de partida.
+A API pode ser testada integralmente via **curl**, usando os exemplos acima como ponto de partida.
