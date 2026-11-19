@@ -1,15 +1,18 @@
 'use client'
 import './globals.css'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
+import { useEffect, useState } from 'react'
+import { getUserEmail, clearSession } from '@/lib/auth'
 import {
-  Home, Users, Folder, Car, User, 
-  MapPin, Wrench, Package, Cpu, UserCog, 
-  ShoppingBag, Clock, Clipboard, Layers
+  Home, Users, Folder, Car, User,
+  MapPin, Wrench, Package, Cpu, UserCog,
+  ShoppingBag, Clock, Clipboard, Layers, LogIn, LogOut, FileBarChart
 } from 'lucide-react'
 
 const nav = [
   { href: '/',                  label: 'Dashboard',                 icon: Home },
+  { href: '/relatorios',        label: 'Relatórios (SSR)',          icon: FileBarChart },
   { href: '/clientes',          label: 'Clientes',                  icon: Users },
   { href: '/projetos',          label: 'Projetos',                  icon: Folder },
   { href: '/historico_projeto', label: 'Histórico Projeto',         icon: Clock },
@@ -27,6 +30,16 @@ const nav = [
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const path = usePathname()
+  const router = useRouter()
+  const [email, setEmail] = useState<string | null>(null)
+
+  useEffect(() => { setEmail(getUserEmail()) }, [path])
+
+  const handleLogout = () => {
+    clearSession()
+    setEmail(null)
+    router.push('/login')
+  }
 
   return (
     <html lang="pt-BR">
@@ -66,7 +79,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </div>
 
           {/* Nav */}
-          <nav style={{ padding: '12px 12px', flex: 1 }}>
+          <nav style={{ padding: '12px 12px', flex: 1, minHeight: 0, overflowY: 'auto' }}>
             {nav.map(({ href, label, icon: Icon }) => {
               const active = path === href || (href !== '/' && path.startsWith(href))
               return (
@@ -94,8 +107,29 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             })}
           </nav>
 
-          <div style={{ padding: '16px 24px', borderTop: '1px solid var(--border)', fontSize: 11, color: 'var(--text-muted)' }}>
-            v1.0.0 · Docker
+          <div style={{ padding: '14px 24px', borderTop: '1px solid var(--border)' }}>
+            {email ? (
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8 }}>
+                <span style={{ fontSize: 12, color: 'var(--text-muted)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                  {email}
+                </span>
+                <button onClick={handleLogout} title="Sair" style={{
+                  background: 'transparent', border: 'none', color: 'var(--text-muted)', cursor: 'pointer',
+                  display: 'flex', alignItems: 'center', padding: 4,
+                }}>
+                  <LogOut size={15} />
+                </button>
+              </div>
+            ) : (
+              <Link href="/login" style={{ textDecoration: 'none' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 13, color: 'var(--accent)' }}>
+                  <LogIn size={15} /> Entrar
+                </div>
+              </Link>
+            )}
+            <div style={{ fontSize: 11, color: 'var(--text-muted)', marginTop: 10 }}>
+              v1.0.0 · Docker
+            </div>
           </div>
         </aside>
 
