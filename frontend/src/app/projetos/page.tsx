@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import api from '@/lib/api'
+import apiLocal from '@/lib/apiLocal'
 import { requireAuth, handleAuthError } from '@/lib/auth'
 import CrudTable from '@/components/CrudTable'
 
@@ -49,11 +50,13 @@ export default function ProjetosPage() {
       delete payload.oficina
       delete payload.veiculo
 
+      // Escrita passa pelo Route Handler do próprio Next.js (app/api/projetos),
+      // que repassa a requisição para o backend Express.
       if (item.id_projeto) {
-        await api.put(`/api/projetos/${item.id_projeto}`, payload)
+        await apiLocal.put(`/api/projetos/${item.id_projeto}`, payload)
         setEditing(null)
       } else {
-        await api.post('/api/projetos', payload)
+        await apiLocal.post('/api/projetos', payload)
         setCreating(false)
         setNewItem({})
       }
@@ -68,7 +71,7 @@ export default function ProjetosPage() {
     if (!requireAuth(router)) return
     if (confirm('Deseja deletar este projeto? Serviços e Históricos atrelados serão apagados!')) {
       try {
-        await api.delete(`/api/projetos/${id}`)
+        await apiLocal.delete(`/api/projetos/${id}`)
         load()
       } catch (error: any) {
         if (!handleAuthError(error, router)) alert('Erro ao remover projeto.')

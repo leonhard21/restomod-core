@@ -53,6 +53,11 @@ services:
         NEXT_PUBLIC_N8N_WEBHOOK_URL: http://localhost:5678/webhook/assistente
     container_name: oficina_frontend
     restart: always
+    environment:
+      # Usada só no server (Server Components e Route Handlers), que rodam
+      # dentro deste container e por isso precisam do hostname do serviço
+      # "backend" na rede do Compose, em vez de "localhost".
+      API_INTERNAL_URL: http://backend:8080
     ports:
       - "3000:3000"
     depends_on:
