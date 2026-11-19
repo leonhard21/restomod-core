@@ -7,11 +7,12 @@ import { getUserEmail, clearSession } from '@/lib/auth'
 import {
   Home, Users, Folder, Car, User,
   MapPin, Wrench, Package, Cpu, UserCog,
-  ShoppingBag, Clock, Clipboard, Layers, LogIn, LogOut
+  ShoppingBag, Clock, Clipboard, Layers, LogIn, LogOut, FileBarChart
 } from 'lucide-react'
 
 const nav = [
   { href: '/',                  label: 'Dashboard',                 icon: Home },
+  { href: '/relatorios',        label: 'Relatórios (SSR)',          icon: FileBarChart },
   { href: '/clientes',          label: 'Clientes',                  icon: Users },
   { href: '/projetos',          label: 'Projetos',                  icon: Folder },
   { href: '/historico_projeto', label: 'Histórico Projeto',         icon: Clock },
@@ -78,7 +79,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </div>
 
           {/* Nav */}
-          <nav style={{ padding: '12px 12px', flex: 1 }}>
+          <nav style={{ padding: '12px 12px', flex: 1, minHeight: 0, overflowY: 'auto' }}>
             {nav.map(({ href, label, icon: Icon }) => {
               const active = path === href || (href !== '/' && path.startsWith(href))
               return (
